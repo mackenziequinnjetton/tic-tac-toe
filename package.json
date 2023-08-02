@@ -41,7 +41,9 @@
     ]
   },
   "devDependencies": {
-    "plop": "^3.1.2"
+    "plop": "^3.1.2",
+    "sass": "^1.64.2",
+    "ts-jest": "^29.1.1"
   },
   "type": "module"
 }
