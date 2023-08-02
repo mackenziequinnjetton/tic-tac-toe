@@ -1,7 +1,7 @@
 const BoardSpace = () => {
   return (
     <>
-      BoardSpace
+      .
     </>
   )
 };

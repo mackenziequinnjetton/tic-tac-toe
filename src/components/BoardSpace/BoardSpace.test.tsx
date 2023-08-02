@@ -5,6 +5,6 @@ import BoardSpace from './BoardSpace';
 
 test('renders BoardSpace', () => {
   render(<BoardSpace />);
-  const linkElement = screen.getByText(/BoardSpace/i);
+  const linkElement = screen.getByText(/\./i);
   expect(linkElement).toBeInTheDocument();
 });
