@@ -1,8 +1,12 @@
+import { BoardSpace } from "../BoardSpace";
+
 const BoardRow = () => {
   return (
-    <>
-      BoardRow
-    </>
+    <div>
+      <BoardSpace />
+      <BoardSpace />
+      <BoardSpace />
+    </div>
   )
 };
 

@@ -1,23 +1,11 @@
-import { BoardSpace } from "../BoardSpace";
+import { BoardRow } from "../BoardRow";
 
 const Board = () => {
   return (
     <div>
-      <div className="boardRow">
-        <BoardSpace />
-        <BoardSpace />
-        <BoardSpace />
-      </div>
-      <div className="boardRow">
-        <BoardSpace />
-        <BoardSpace />
-        <BoardSpace />
-      </div>
-      <div className="boardRow">
-        <BoardSpace />
-        <BoardSpace />
-        <BoardSpace />
-      </div>
+      < BoardRow />
+      < BoardRow />
+      < BoardRow />
     </div>
   )
 };
