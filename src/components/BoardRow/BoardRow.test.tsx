@@ -5,6 +5,6 @@ import BoardRow from './BoardRow';
 
 test('renders BoardRow', () => {
   render(<BoardRow />);
-  const linkElement = screen.getByText(/\.{3}/i);
-  expect(linkElement).toBeInTheDocument();
+  const linkElement = screen.getAllByText(/./i);
+  expect(linkElement).toHaveLength(3);
 });

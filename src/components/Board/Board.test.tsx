@@ -6,5 +6,5 @@ import Board from './Board';
 test('renders Board', () => {
   render(<Board />);
   const linkElements = screen.getAllByText(/./i);
-  expect(linkElements).toHaveLength(3);
+  expect(linkElements).toHaveLength(9);
 });
