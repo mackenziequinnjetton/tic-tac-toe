@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import BoardRow from './BoardRow';
 
 test('renders BoardRow', () => {
-  render(<BoardRow />);
+  render(<BoardRow rowData={[".", ".", "."]} />);
   const linkElement = screen.getAllByText(/./i);
   expect(linkElement).toHaveLength(3);
 });
