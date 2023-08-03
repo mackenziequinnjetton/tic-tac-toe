@@ -4,13 +4,13 @@ import '@testing-library/jest-dom';
 import BoardSpace from './BoardSpace';
 
 test('renders BoardSpace', () => {
-  render(<BoardSpace spaceData="."/>);
+  render(<BoardSpace spaceId={1} spaceValue="."/>);
   const linkElement = screen.getByText(/\./i);
   expect(linkElement).toBeInTheDocument();
 });
 
 test('renders BoardSpace with value', () => {
-  render(<BoardSpace spaceData="X" />);
+  render(<BoardSpace spaceId={1} spaceValue="X" />);
   const linkElement = screen.getByText(/X/i);
   expect(linkElement).toBeInTheDocument();
 });

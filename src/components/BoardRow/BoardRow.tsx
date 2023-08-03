@@ -1,11 +1,12 @@
 import { BoardSpace } from "../BoardSpace";
 
-const BoardRow = ({ rowData }: { rowData: string[] }) => {
+const BoardRow = ({ boardRowData }: { boardRowData: { spaceId: number, spaceValue: string }[] }) => {
+
   return (
     <div>
-      <BoardSpace spaceData={rowData[0]}/>
-      <BoardSpace spaceData={rowData[1]}/>
-      <BoardSpace spaceData={rowData[2]}/>
+      { boardRowData.map(({ spaceId, spaceValue }, index) => (
+        <BoardSpace key={index} spaceId={spaceId} spaceValue={spaceValue} />
+      ))}
     </div>
   )
 };

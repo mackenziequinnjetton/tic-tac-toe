@@ -1,8 +1,8 @@
-const BoardSpace = ({ spaceData }: { spaceData: string }) => {
+const BoardSpace = ({ spaceId, spaceValue }: { spaceId: number, spaceValue: string }) => {
 
   return (
-    <button className="boardSpace">
-      { spaceData }
+    <button id={`${spaceId}`} className="boardSpace">
+      {spaceValue}
     </button>
   )
 };

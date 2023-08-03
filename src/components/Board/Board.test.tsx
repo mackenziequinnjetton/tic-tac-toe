@@ -8,3 +8,10 @@ test('renders Board', () => {
   const linkElements = screen.getAllByText(/./i);
   expect(linkElements).toHaveLength(9);
 });
+
+test('player 1 makes move successfully', () => {
+  render(<Board />);
+  const linkElements = screen.getAllByText(/./i);
+  linkElements[0].click();
+  expect(linkElements[0]).toHaveTextContent('X');
+});
