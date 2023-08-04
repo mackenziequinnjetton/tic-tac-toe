@@ -1,14 +1,12 @@
-const BoardSpace = ({ spaceId, spaceValue, makeMove, currentToken, switchToken }: { 
+const BoardSpace = ({ spaceId, spaceValue, makeMove, currentToken }: { 
   spaceId: number, 
   spaceValue: string,
-  makeMove: (spaceId: number) => void,
+  makeMove: (spaceId: number, spaceValue: string) => void,
   currentToken: string,
-  switchToken: () => void
 }) => {
 
 const onButtonClick = () => {
-  makeMove(spaceId);
-  switchToken();
+  makeMove(spaceId, spaceValue);
 };
 
   return (

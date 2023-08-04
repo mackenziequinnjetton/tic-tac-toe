@@ -25,17 +25,25 @@ const Board = () => {
   const { boardRow1, boardRow2, boardRow3 } = boardData;
   const boardRows = [ boardRow1, boardRow2, boardRow3 ];
 
-  const makeMove = (spaceId: number) => {
-    const newBoardData = { ...boardData };
-    const boardRowNumber = Math.ceil(spaceId / 3);
-    const newBoardRow = boardRowNumber === 1 
-      ? newBoardData.boardRow1 
-      : boardRowNumber === 2 
-      ? newBoardData.boardRow2 
-      : newBoardData.boardRow3;
-    const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
-    newBoardSpace.spaceValue = currentToken;
-    setBoardData(newBoardData);
+  // TODO: Split part of this function off into helper functions
+  const makeMove = (spaceId: number, spaceValue: string) => {
+    if (spaceNotOccupied(spaceValue)) {
+      const newBoardData = { ...boardData };
+      const boardRowNumber = Math.ceil(spaceId / 3);
+      const newBoardRow = boardRowNumber === 1 
+        ? newBoardData.boardRow1 
+        : boardRowNumber === 2 
+        ? newBoardData.boardRow2 
+        : newBoardData.boardRow3;
+      const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
+      newBoardSpace.spaceValue = currentToken;
+      setBoardData(newBoardData);
+      switchToken();
+    }
+  };
+
+  const spaceNotOccupied = (spaceValue: string) => {
+    return spaceValue === ".";
   };
 
   const switchToken = () => {
@@ -50,7 +58,6 @@ const Board = () => {
           boardRowData={boardRowData} 
           makeMove={makeMove}
           currentToken={currentToken}
-          switchToken={switchToken}
         />
       ))}
     </div>

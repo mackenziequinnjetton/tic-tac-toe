@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import BoardRow from './BoardRow';
 import makeMove from '../Board/Board'
-import switchToken from '../Board/Board'
 
 test('renders BoardRow', () => {
   render(
@@ -15,7 +14,6 @@ test('renders BoardRow', () => {
       ]}
       makeMove={makeMove}
       currentToken="X"
-      switchToken={switchToken} 
     />);
   const linkElement = screen.getAllByText(/./i);
   expect(linkElement).toHaveLength(3);
