@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BoardRow } from "../BoardRow";
 
 const Board = () => {
-  const [ { boardRow1, boardRow2, boardRow3 }, setBoardData ] = useState({
+  const [ boardData, setBoardData ] = useState({
     boardRow1: [
       { spaceId: 1, spaceValue: "." },
       { spaceId: 2, spaceValue: "." },
@@ -20,20 +20,38 @@ const Board = () => {
     ]
   });
 
+  const [ currentToken, setCurrentToken ] = useState("X");
+
+  const { boardRow1, boardRow2, boardRow3 } = boardData;
   const boardRows = [ boardRow1, boardRow2, boardRow3 ];
 
-  // const makeMove = (row: number, column: number) => {
-  //   const newBoardData: { boardRow1: string[], boardRow2: string[], boardRow3: string[] } = {
-  //     ...{ boardRow1, boardRow2, boardRow3 }
-  //   };
-  //   newBoardData[`boardRow${row}`][column] = "X";
-  //   setBoardData(newBoardData);
-  // };
+  const makeMove = (spaceId: number) => {
+    const newBoardData = { ...boardData };
+    const boardRowNumber = Math.ceil(spaceId / 3);
+    const newBoardRow = boardRowNumber === 1 
+      ? newBoardData.boardRow1 
+      : boardRowNumber === 2 
+      ? newBoardData.boardRow2 
+      : newBoardData.boardRow3;
+    const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
+    newBoardSpace.spaceValue = currentToken;
+    setBoardData(newBoardData);
+  };
+
+  const switchToken = () => {
+    setCurrentToken(currentToken === "X" ? "O" : "X");
+  };
 
   return (
     <div>
       { boardRows.map((boardRowData, index) => (
-        <BoardRow key={index} boardRowData={boardRowData} />
+        <BoardRow 
+          key={index} 
+          boardRowData={boardRowData} 
+          makeMove={makeMove}
+          currentToken={currentToken}
+          switchToken={switchToken}
+        />
       ))}
     </div>
   )
