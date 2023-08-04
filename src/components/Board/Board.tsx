@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BoardRow } from "../BoardRow";
+import { spaceNotOccupied, switchToken } from "../../util/utilityFunctions";
 
 const Board = () => {
   const [ boardData, setBoardData ] = useState({
@@ -38,16 +39,8 @@ const Board = () => {
       const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
       newBoardSpace.spaceValue = currentToken;
       setBoardData(newBoardData);
-      switchToken();
+      switchToken(currentToken, setCurrentToken);
     }
-  };
-
-  const spaceNotOccupied = (spaceValue: string) => {
-    return spaceValue === ".";
-  };
-
-  const switchToken = () => {
-    setCurrentToken(currentToken === "X" ? "O" : "X");
   };
 
   return (
