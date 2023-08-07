@@ -20,7 +20,6 @@ const Board = () => {
         : newBoardData.boardRow3;
       const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
       newBoardSpace.spaceValue = currentToken;
-      console.log(newBoardData)
       setBoardData(newBoardData);
       switchToken(currentToken, setCurrentToken);
     }

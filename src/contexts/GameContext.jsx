@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 export const GameContext = createContext();
 
 const GameProvider = (props) => {
-  const [ boardData, setboardData ] = useState({
+  const [ boardData, setBoardData ] = useState({
     boardRow1: [
       { spaceId: 1, spaceValue: "." },
       { spaceId: 2, spaceValue: "." },
@@ -26,7 +26,7 @@ const GameProvider = (props) => {
   return (
       <GameContext.Provider value={{
         boardData,
-        setboardData,
+        setBoardData,
         currentToken,
         setCurrentToken
       }}>
