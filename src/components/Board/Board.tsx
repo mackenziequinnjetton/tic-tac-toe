@@ -5,8 +5,6 @@ import { GameContext } from "../../contexts/GameContext";
 
 const Board = () => {
   const { boardData, setBoardData, currentToken, setCurrentToken } = useContext(GameContext);
-  console.log(GameContext);
-
   const { boardRow1, boardRow2, boardRow3 } = boardData;
   const boardRows = [ boardRow1, boardRow2, boardRow3 ];
 
@@ -22,6 +20,7 @@ const Board = () => {
         : newBoardData.boardRow3;
       const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
       newBoardSpace.spaceValue = currentToken;
+      console.log(newBoardData)
       setBoardData(newBoardData);
       switchToken(currentToken, setCurrentToken);
     }
