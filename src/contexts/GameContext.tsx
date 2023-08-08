@@ -31,6 +31,8 @@ interface GameContextDataTypes {
   }>>;
   currentToken: string;
   setCurrentToken: React.Dispatch<React.SetStateAction<string>>;
+  spaceNotOccupied: (spaceValue: string) => boolean;
+  switchToken: (currentToken: string) => void;
 }
 
 export const GameContext = createContext<GameContextDataTypes>({} as GameContextDataTypes);
@@ -56,12 +58,22 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
 
   const [ currentToken, setCurrentToken ] = useState("X");
 
+  const spaceNotOccupied = (spaceValue: string) => {
+    return spaceValue === ".";
+  };
+
+  const switchToken = (currentToken: string) => {
+    setCurrentToken(currentToken === "X" ? "O" : "X");
+  };
+
   return (
       <GameContext.Provider value={{
         boardData,
         setBoardData,
         currentToken,
-        setCurrentToken
+        setCurrentToken,
+        spaceNotOccupied,
+        switchToken
       }}>
         {children}
       </GameContext.Provider>

@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import { BoardRow } from "../BoardRow";
-import { spaceNotOccupied, switchToken } from "../../util/utilityFunctions";
 import { GameContext } from "../../contexts/GameContext";
 
 const Board = () => {
-  const { boardData, setBoardData, currentToken, setCurrentToken } = useContext(GameContext);
+  const { boardData, setBoardData, currentToken, spaceNotOccupied, switchToken } = useContext(GameContext);
   const { boardRow1, boardRow2, boardRow3 } = boardData;
   const boardRows = [ boardRow1, boardRow2, boardRow3 ];
 
@@ -21,7 +20,7 @@ const Board = () => {
       const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
       newBoardSpace.spaceValue = currentToken;
       setBoardData(newBoardData);
-      switchToken(currentToken, setCurrentToken);
+      switchToken(currentToken);
     }
   };
 
