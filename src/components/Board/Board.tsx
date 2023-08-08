@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { BoardRow } from "../BoardRow";
-import { GameContext } from "../../contexts/GameContext";
+import { GameContext } from "../../contexts/GameContext/GameContext";
 
 const Board = () => {
   const { boardData, setBoardData, currentToken, spaceNotOccupied, switchToken } = useContext(GameContext);

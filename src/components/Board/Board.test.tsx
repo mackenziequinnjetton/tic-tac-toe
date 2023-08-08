@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Board from './Board';
 import { act } from 'react-dom/test-utils';
-import GameProvider from '../../contexts/GameContext';
+import GameProvider from '../../contexts/GameContext/GameContext';
 
 const setup = () => {
   render(
