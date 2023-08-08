@@ -23,7 +23,8 @@ const setup = () => {
         ]
       },
       currentToken: "X",
-      makeMove: jest.fn()
+      makeMove: jest.fn(),
+      winner: false
     }}>
       <div>GameContext</div>
     </GameContext.Provider>
