@@ -22,11 +22,8 @@ const setup = () => {
           { spaceId: 9, spaceValue: "." }
         ]
       },
-      setBoardData: jest.fn(),
       currentToken: "X",
-      setCurrentToken: jest.fn(),
-      spaceNotOccupied: jest.fn(),
-      switchToken: jest.fn()
+      makeMove: jest.fn()
     }}>
       <div>GameContext</div>
     </GameContext.Provider>
@@ -38,8 +35,4 @@ test('renders GameContext', () => {
 
   const linkElement = screen.getByText(/GameContext/i);
   expect(linkElement).toBeInTheDocument();
-});
-
-test('spaceNotOccupied returns expected true value', () => {
-  
 });

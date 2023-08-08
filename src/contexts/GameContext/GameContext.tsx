@@ -15,24 +15,8 @@ interface GameContextDataTypes {
       spaceValue: string;
     }[]
   };
-  setBoardData: React.Dispatch<React.SetStateAction<{
-    boardRow1: {
-      spaceId: number;
-      spaceValue: string;
-    }[];
-    boardRow2: {
-      spaceId: number;
-      spaceValue: string;
-    }[];
-    boardRow3: {
-      spaceId: number;
-      spaceValue: string;
-    }[];
-  }>>;
   currentToken: string;
-  setCurrentToken: React.Dispatch<React.SetStateAction<string>>;
-  spaceNotOccupied: (spaceValue: string) => boolean;
-  switchToken: (currentToken: string) => void;
+  makeMove: (spaceId: number, spaceValue: string) => void;
 }
 
 export const GameContext = createContext<GameContextDataTypes>({} as GameContextDataTypes);
@@ -58,6 +42,28 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
 
   const [ currentToken, setCurrentToken ] = useState("X");
 
+  // TODO: Split part of this function off into helper functions
+  const makeMove = (spaceId: number, spaceValue: string) => {
+    if (spaceNotOccupied(spaceValue)) {
+      const newBoardData = updateBoardData(spaceId);
+      setBoardData(newBoardData);
+      switchToken(currentToken);
+    }
+  };
+
+  const updateBoardData = (spaceId: number) => {
+    const newBoardData = { ...boardData };
+    const boardRowNumber = Math.ceil(spaceId / 3);
+    const newBoardRow = boardRowNumber === 1 
+      ? newBoardData.boardRow1 
+      : boardRowNumber === 2 
+      ? newBoardData.boardRow2 
+      : newBoardData.boardRow3;
+    const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
+    newBoardSpace.spaceValue = currentToken;
+    return newBoardData;
+  }
+
   const spaceNotOccupied = (spaceValue: string) => {
     return spaceValue === ".";
   };
@@ -66,14 +72,13 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     setCurrentToken(currentToken === "X" ? "O" : "X");
   };
 
+  
+
   return (
       <GameContext.Provider value={{
         boardData,
-        setBoardData,
         currentToken,
-        setCurrentToken,
-        spaceNotOccupied,
-        switchToken
+        makeMove
       }}>
         {children}
       </GameContext.Provider>
