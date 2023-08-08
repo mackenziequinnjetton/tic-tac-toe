@@ -1,9 +1,7 @@
 import { BoardSpace } from "../BoardSpace";
 
-const BoardRow = ({ boardRowData, makeMove, currentToken }: { 
+const BoardRow = ({ boardRowData }: { 
   boardRowData: { spaceId: number, spaceValue: string }[], 
-  makeMove: (spaceId: number, spaceValue: string) => void,
-  currentToken: string,
 }) => {
 
   return (
@@ -12,9 +10,7 @@ const BoardRow = ({ boardRowData, makeMove, currentToken }: {
         <BoardSpace 
           key={index} 
           spaceId={spaceId} 
-          spaceValue={spaceValue} 
-          makeMove={makeMove}
-          currentToken={currentToken}  
+          spaceValue={spaceValue}  
         />
       ))}
     </div>

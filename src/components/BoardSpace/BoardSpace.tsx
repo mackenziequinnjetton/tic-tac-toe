@@ -1,13 +1,15 @@
-const BoardSpace = ({ spaceId, spaceValue, makeMove, currentToken }: { 
+import { useContext } from "react";
+import { GameContext } from "../../contexts/GameContext/GameContext";
+
+const BoardSpace = ({ spaceId, spaceValue }: { 
   spaceId: number, 
   spaceValue: string,
-  makeMove: (spaceId: number, spaceValue: string) => void,
-  currentToken: string,
 }) => {
+  const { makeMove } = useContext(GameContext);
 
-const onButtonClick = () => {
-  makeMove(spaceId, spaceValue);
-};
+  const onButtonClick = () => {
+    makeMove(spaceId, spaceValue);
+  };
 
   return (
     <button id={`${spaceId}`} className="boardSpace" onClick={onButtonClick}>

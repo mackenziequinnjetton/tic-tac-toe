@@ -3,11 +3,9 @@ import { BoardRow } from "../BoardRow";
 import { GameContext } from "../../contexts/GameContext/GameContext";
 
 const Board = () => {
-  const { boardData, currentToken, makeMove } = useContext(GameContext);
+  const { boardData } = useContext(GameContext);
   const { boardRow1, boardRow2, boardRow3 } = boardData;
   const boardRows = [ boardRow1, boardRow2, boardRow3 ];
-
-  
 
   return (
     <div>
@@ -15,8 +13,6 @@ const Board = () => {
         <BoardRow 
           key={index} 
           boardRowData={boardRowData} 
-          makeMove={makeMove}
-          currentToken={currentToken}
         />
       ))}
     </div>
