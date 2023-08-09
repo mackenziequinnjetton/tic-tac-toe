@@ -6,9 +6,10 @@ const GameHeader = () => {
 
   return (
     <div>
-      Player { currentToken }{ winner ? " wins!" : ", it's your turn!" }
+      Player {currentToken}
+      {winner ? " wins!" : ", it's your turn!"}
     </div>
-  )
+  );
 };
 
 export default GameHeader;

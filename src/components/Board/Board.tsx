@@ -7,29 +7,29 @@ const Board = () => {
   const boardRows = [
     {
       boardRowData: boardData.slice(0, 3),
-      boardRowIndices: [0, 1, 2]
-    }, 
+      boardRowIndices: [0, 1, 2],
+    },
     {
       boardRowData: boardData.slice(3, 6),
-      boardRowIndices: [3, 4, 5]
+      boardRowIndices: [3, 4, 5],
     },
     {
       boardRowData: boardData.slice(6, 9),
-      boardRowIndices: [6, 7, 8]
-    }
+      boardRowIndices: [6, 7, 8],
+    },
   ];
 
   return (
     <div>
-      { boardRows.map((boardRowElem, index) => (
-        <BoardRow 
-          key={index} 
+      {boardRows.map((boardRowElem, index) => (
+        <BoardRow
+          key={index}
           boardRowData={boardRowElem.boardRowData}
-          boardRowIndices={boardRowElem.boardRowIndices} 
+          boardRowIndices={boardRowElem.boardRowIndices}
         />
       ))}
     </div>
-  )
+  );
 };
 
 export default Board;

@@ -1,1 +1,1 @@
-export { default as BoardSpace } from './BoardSpace';
+export { default as BoardSpace } from "./BoardSpace";
