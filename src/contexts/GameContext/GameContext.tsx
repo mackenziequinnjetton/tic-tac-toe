@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 interface GameContextDataTypes {
   boardData: string[];
@@ -13,23 +13,54 @@ export const GameContext = createContext<GameContextDataTypes>(
 );
 
 const GameProvider = ({ children }: React.PropsWithChildren) => {
-  const [boardData, setBoardData] = useState([
-    ".",
-    ".",
-    ".",
-    ".",
-    ".",
-    ".",
-    ".",
-    ".",
-    ".",
-  ]);
+  const [boardData, setBoardData] = useState(() => {
+    const boardDataFromLocalStorage = localStorage.getItem("boardData");
+    if (boardDataFromLocalStorage && boardDataFromLocalStorage !== "undefined") {
+      return JSON.parse(boardDataFromLocalStorage);
+    }
+    return [
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+      ".",
+    ];
+  });
 
-  const [currentToken, setCurrentToken] = useState("X");
+  const [currentToken, setCurrentToken] = useState(() => {
+    const currentTokenFromLocalStorage = localStorage.getItem("currentToken");
+    if (currentTokenFromLocalStorage && currentTokenFromLocalStorage !== "undefined") {
+      return JSON.parse(currentTokenFromLocalStorage);
+    }
+    return "X";
+  });
 
-  const [winner, setWinner] = useState(false);
+  const [winner, setWinner] = useState(() => {
+    const winnerFromLocalStorage = localStorage.getItem("winner");
+    if (winnerFromLocalStorage && winnerFromLocalStorage !== "undefined") {
+      return JSON.parse(winnerFromLocalStorage);
+    }
+    return false;
+  });
 
-  const [ draw, setDraw ] = useState(false);
+  const [ draw, setDraw ] = useState(() => {
+    const drawFromLocalStorage = localStorage.getItem("draw");
+    if (drawFromLocalStorage && drawFromLocalStorage !== "undefined") {
+      return JSON.parse(drawFromLocalStorage);
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("boardData", JSON.stringify(boardData));
+    localStorage.setItem("currentToken", JSON.stringify(currentToken));
+    localStorage.setItem("winner", JSON.stringify(winner));
+    localStorage.setItem("draw", JSON.stringify(draw));
+  }, [boardData, currentToken, winner, draw]);
 
   const makeMove = (spaceIndex: number) => {
     if (!winner && !draw && spaceNotOccupied(spaceIndex)) {
@@ -40,6 +71,10 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
       if (!newWinner && !newDraw) {
         switchToken(currentToken);
       }
+      localStorage.setItem("boardData", JSON.stringify(boardData));
+      localStorage.setItem("currentToken", JSON.stringify(currentToken));
+      localStorage.setItem("winner", JSON.stringify(winner));
+      localStorage.setItem("draw", JSON.stringify(draw));
     }
   };
 
@@ -126,7 +161,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
         currentToken,
         makeMove,
         winner,
-        draw
+        draw,
       }}
     >
       {children}

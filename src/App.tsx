@@ -4,6 +4,7 @@ import { Board } from "./components/Board";
 import GameProvider from "./contexts/GameContext/GameContext";
 
 function App() {
+
   return (
     <>
       <GameProvider>

@@ -10,7 +10,7 @@ const setup = () => {
         currentToken: "X",
         makeMove: jest.fn(),
         winner: false,
-        draw: false
+        draw: false,
       }}
     >
       <div>GameContext</div>
