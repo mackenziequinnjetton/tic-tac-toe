@@ -47,3 +47,29 @@ test("player 2 cannot overwrite player 1's move", () => {
   });
   expect(linkElements[0]).toHaveTextContent("X");
 });
+
+test("player 1 cannot make another move after player 2 wins", () => {
+  const linkElements = setup();
+  act(() => {
+    linkElements[0].click();
+  });
+  act(() => {
+    linkElements[1].click();
+  });
+  act(() => {
+    linkElements[6].click();
+  });
+  act(() => {
+    linkElements[4].click();
+  });
+  act(() => {
+    linkElements[8].click();
+  });
+  act(() => {
+    linkElements[7].click();
+  });
+  act(() => {
+    linkElements[2].click();
+  });
+  expect(linkElements[2]).toHaveTextContent(".");
+});

@@ -31,13 +31,17 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
 
   const [ draw, setDraw ] = useState(false);
 
+  const [ gameEnd, setGameEnd ] = useState(false);
+
   const makeMove = (spaceIndex: number) => {
-    if (spaceNotOccupied(spaceIndex)) {
+    if (!gameEnd && spaceNotOccupied(spaceIndex)) {
       const newBoardData = updateBoardData(spaceIndex);
       setBoardData(newBoardData);
       const newWinner = checkWinner(newBoardData);
       const newDraw = checkDraw(newBoardData);
-      if (!newWinner && !newDraw) {
+      if (newWinner || newDraw) {
+        setGameEnd(true);
+      } else {
         switchToken(currentToken);
       }
     }
