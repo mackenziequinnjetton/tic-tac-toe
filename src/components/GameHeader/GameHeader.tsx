@@ -2,12 +2,17 @@ import { useContext } from "react";
 import { GameContext } from "../../contexts/GameContext/GameContext";
 
 const GameHeader = () => {
-  const { currentToken, winner } = useContext(GameContext);
+  const { currentToken, winner, draw } = useContext(GameContext);
 
   return (
     <div>
-      Player {currentToken}
-      {winner ? " wins!" : ", it's your turn!"}
+      {
+        draw 
+        ? "It's a draw!" 
+        : winner 
+        ? `Player ${currentToken} wins!` 
+        : `Player ${currentToken}, it's your turn!`
+      }
     </div>
   );
 };

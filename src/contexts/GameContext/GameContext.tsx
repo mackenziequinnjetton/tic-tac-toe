@@ -5,6 +5,7 @@ interface GameContextDataTypes {
   currentToken: string;
   makeMove: (spaceIndex: number) => void;
   winner: boolean;
+  draw: boolean;
 }
 
 export const GameContext = createContext<GameContextDataTypes>(
@@ -28,12 +29,15 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
 
   const [winner, setWinner] = useState(false);
 
+  const [ draw, setDraw ] = useState(false);
+
   const makeMove = (spaceIndex: number) => {
     if (spaceNotOccupied(spaceIndex)) {
       const newBoardData = updateBoardData(spaceIndex);
       setBoardData(newBoardData);
       const newWinner = checkWinner(newBoardData);
-      if (!newWinner) {
+      const newDraw = checkDraw(newBoardData);
+      if (!newWinner && !newDraw) {
         switchToken(currentToken);
       }
     }
@@ -104,6 +108,17 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     return diagonal1.length === 3 || diagonal2.length === 3;
   };
 
+  const checkDraw = (newBoardData: string[]) => {
+    const filteredBoardData = newBoardData.filter(
+      (space) => space === "X" || space === "O",
+    );
+    const newDraw = filteredBoardData.length === 9;
+    if (newDraw) {
+      setDraw(true);
+    }
+    return newDraw;
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -111,6 +126,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
         currentToken,
         makeMove,
         winner,
+        draw
       }}
     >
       {children}
