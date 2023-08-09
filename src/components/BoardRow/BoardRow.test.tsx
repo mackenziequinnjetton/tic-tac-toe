@@ -6,10 +6,11 @@ test('renders BoardRow', () => {
   render(
     <BoardRow 
       boardRowData={[
-        { spaceId: 1, spaceValue: "." },
-        { spaceId: 2, spaceValue: "." },
-        { spaceId: 3, spaceValue: "." }
+        ".",
+        ".",
+        "."
       ]}
+      boardRowIndices={[0, 1, 2]}
     />);
   const linkElement = screen.getAllByText(/./i);
   expect(linkElement).toHaveLength(3);

@@ -4,15 +4,28 @@ import { GameContext } from "../../contexts/GameContext/GameContext";
 
 const Board = () => {
   const { boardData } = useContext(GameContext);
-  const { boardRow1, boardRow2, boardRow3 } = boardData;
-  const boardRows = [ boardRow1, boardRow2, boardRow3 ];
+  const boardRows = [
+    {
+      boardRowData: boardData.slice(0, 3),
+      boardRowIndices: [0, 1, 2]
+    }, 
+    {
+      boardRowData: boardData.slice(3, 6),
+      boardRowIndices: [3, 4, 5]
+    },
+    {
+      boardRowData: boardData.slice(6, 9),
+      boardRowIndices: [6, 7, 8]
+    }
+  ];
 
   return (
     <div>
-      { boardRows.map((boardRowData, index) => (
+      { boardRows.map((boardRowElem, index) => (
         <BoardRow 
           key={index} 
-          boardRowData={boardRowData} 
+          boardRowData={boardRowElem.boardRowData}
+          boardRowIndices={boardRowElem.boardRowIndices} 
         />
       ))}
     </div>

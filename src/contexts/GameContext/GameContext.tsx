@@ -1,96 +1,72 @@
 import React, { createContext, useState } from "react";
 
 interface GameContextDataTypes {
-  boardData: [
-    {
-      spaceId: number;
-      spaceValue: string;
-    }
-  ];
+  boardData: string[];
   currentToken: string;
-  makeMove: (spaceId: number, spaceValue: string) => void;
+  makeMove: (spaceIndex: number) => void;
   winner: boolean;
 }
 
 export const GameContext = createContext<GameContextDataTypes>({} as GameContextDataTypes);
 
 const GameProvider = ({ children }: React.PropsWithChildren) => {
-  const [ boardData, setBoardData ] = useState([
-    { spaceId: 1, spaceValue: "." },
-    { spaceId: 2, spaceValue: "." },
-    { spaceId: 3, spaceValue: "." },
-    { spaceId: 4, spaceValue: "." },
-    { spaceId: 5, spaceValue: "." },
-    { spaceId: 6, spaceValue: "." },
-    { spaceId: 7, spaceValue: "." },
-    { spaceId: 8, spaceValue: "." },
-    { spaceId: 9, spaceValue: "." }
-  ]);
+  const [ boardData, setBoardData ] = useState([ ".", ".", ".", ".", ".", ".", ".", ".", "." ]);
 
   const [ currentToken, setCurrentToken ] = useState("X");
 
   const [ winner, setWinner ] = useState(false);
 
-  const makeMove = (spaceId: number, spaceValue: string) => {
-    if (spaceNotOccupied(spaceValue)) {
-      const newBoardData = updateBoardData(spaceId);
+  const makeMove = (spaceIndex: number) => {
+    if (spaceNotOccupied(spaceIndex)) {
+      const newBoardData = updateBoardData(spaceIndex);
       setBoardData(newBoardData);
-      checkWinner();
-      if (!winner) {
+      const newWinner = checkWinner(newBoardData);
+      if (!newWinner) {
         switchToken(currentToken);
       }
     }
   };
 
-  const updateBoardData = (spaceId: number) => {
-    const newBoardData = { ...boardData };
-    const boardRowNumber = Math.ceil(spaceId / 3);
-    const newBoardRow = boardRowNumber === 1 
-      ? newBoardData.boardRow1 
-      : boardRowNumber === 2 
-      ? newBoardData.boardRow2 
-      : newBoardData.boardRow3;
-    const newBoardSpace = newBoardRow[(spaceId - (3 * (boardRowNumber - 1))) - 1];
-    newBoardSpace.spaceValue = currentToken;
+  const spaceNotOccupied = (spaceIndex: number) => {
+    return boardData[spaceIndex] === ".";
+  };
+
+  const updateBoardData = (spaceIndex: number) => {
+    const newBoardData = [...boardData]
+    newBoardData[spaceIndex] = currentToken;
     return newBoardData;
   }
-
-  const spaceNotOccupied = (spaceValue: string) => {
-    return spaceValue === ".";
-  };
 
   const switchToken = (currentToken: string) => {
     setCurrentToken(currentToken === "X" ? "O" : "X");
   };
-  
-  const boardDataAsArray = [
-    ...boardData.boardRow1,
-    ...boardData.boardRow2,
-    ...boardData.boardRow3
-  ]
 
-  const checkWinner = () => {
-    const filteredBoardDataArray = boardDataAsArray.filter(space => space.spaceValue === currentToken)
-    setWinner(filteredBoardDataArray.length >= 3 && (checkRows(filteredBoardDataArray) || checkColumns(filteredBoardDataArray) || checkDiagonals(filteredBoardDataArray)));
+  const checkWinner = (newBoardData: string[]) => {
+    const filteredBoardData = newBoardData.filter(space => space === currentToken)
+    const newWinner = filteredBoardData.length >= 3 && (checkRows(newBoardData) || checkColumns(newBoardData) || checkDiagonals(newBoardData));
+    if (newWinner) {
+      setWinner(true);
+    }
+    return newWinner;
   }
 
-  const checkRows = (filteredBoardDataArray: { spaceId: number; spaceValue: string; }[]) => {
-    const row1 = filteredBoardDataArray.filter(space => space.spaceId <= 3);
-    const row2 = filteredBoardDataArray.filter(space => space.spaceId > 3 && space.spaceId <= 6);
-    const row3 = filteredBoardDataArray.filter(space => space.spaceId > 6);
+  const checkRows = (newBoardData: string[]) => {
+    const row1 = newBoardData.filter((space, index) => space === currentToken && [0, 1, 2].includes(index));
+    const row2 = newBoardData.filter((space, index) => space === currentToken && [3, 4, 5].includes(index));
+    const row3 = newBoardData.filter((space, index) => space === currentToken && [6, 7, 8].includes(index));
     return row1.length === 3 || row2.length === 3 || row3.length === 3;
   }
 
-  const checkColumns = (filteredBoardDataArray: { spaceId: number; spaceValue: string; }[]) => {
-    const column1 = filteredBoardDataArray.filter(space => space.spaceId === 1 || space.spaceId === 4 || space.spaceId === 7);
-    const column2 = filteredBoardDataArray.filter(space => space.spaceId === 2 || space.spaceId === 5 || space.spaceId === 8);
-    const column3 = filteredBoardDataArray.filter(space => space.spaceId === 3 || space.spaceId === 6 || space.spaceId === 9);
+  const checkColumns = (newBoardData: string[]) => {
+    const column1 = newBoardData.filter((space, index) => space === currentToken && [0, 3, 6].includes(index));
+    const column2 = newBoardData.filter((space, index) => space === currentToken && [1, 4, 7].includes(index));
+    const column3 = newBoardData.filter((space, index) => space === currentToken && [2, 5, 8].includes(index));
     return column1.length === 3 || column2.length === 3 || column3.length === 3;
   }
 
-  const checkDiagonals = (filteredBoardDataArray: { spaceId: number; spaceValue: string; }[]) => {
-    const diagonal1 = filteredBoardDataArray.filter(space => space.spaceId === 1 || space.spaceId === 5 || space.spaceId === 9);
-    const diagonal2 = filteredBoardDataArray.filter(space => space.spaceId === 3 || space.spaceId === 5 || space.spaceId === 7);
+  const checkDiagonals = (newBoardData: string[]) => {
+    const diagonal1 = newBoardData.filter((space, index) => space === currentToken && [0, 4, 8].includes(index));
+    const diagonal2 = newBoardData.filter((space, index) => space === currentToken && [2, 4, 6].includes(index));
     return diagonal1.length === 3 || diagonal2.length === 3;
   }
 

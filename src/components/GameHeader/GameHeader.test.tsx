@@ -6,28 +6,12 @@ import { GameContext } from '../../contexts/GameContext/GameContext';
 
 const setup = (
   currentToken: string, 
-  boardSpaces: string[] = [".", ".", ".", ".", ".", ".", ".", ".", "."],
+  boardData: string[] = [".", ".", ".", ".", ".", ".", ".", ".", "."],
   winner: boolean = false
 ) => {
   render(
     <GameContext.Provider value={{
-      boardData: {
-        boardRow1: [
-          { spaceId: 1, spaceValue: boardSpaces[0] },
-          { spaceId: 2, spaceValue: boardSpaces[1] },
-          { spaceId: 3, spaceValue: boardSpaces[2] }
-        ],
-        boardRow2: [
-          { spaceId: 4, spaceValue: boardSpaces[3] },
-          { spaceId: 5, spaceValue: boardSpaces[4] },
-          { spaceId: 6, spaceValue: boardSpaces[5] }
-        ],
-        boardRow3: [
-          { spaceId: 7, spaceValue: boardSpaces[6] },
-          { spaceId: 8, spaceValue: boardSpaces[7] },
-          { spaceId: 9, spaceValue: boardSpaces[8] }
-        ]
-      },
+      boardData: boardData,
       currentToken: currentToken,
       makeMove: jest.fn(),
       winner
