@@ -6,26 +6,26 @@ import { act } from "react-dom/test-utils";
 
 test("renders App", () => {
   render(<App />);
-  const linkElements = screen.getAllByText(/./i);
-  expect(linkElements).toHaveLength(11);
+  const appElements = screen.getAllByText(/./i);
+  expect(appElements).toHaveLength(11);
 });
 
 test("renders GameHeader", () => {
   render(<App />);
-  const linkElement = screen.getByText(/Player X, it's your turn!/i);
-  expect(linkElement).toBeInTheDocument();
+  const gameHeaderElement = screen.getByText(/Player X, it's your turn!/i);
+  expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders Board", () => {
   render(<App />);
-  const linkElements = screen.getAllByText(/\./i);
-  expect(linkElements).toHaveLength(9);
+  const boardSpaceElements = screen.getAllByText(/\./i);
+  expect(boardSpaceElements).toHaveLength(9);
 });
 
 test("renders RestartButton", () => {
   render(<App />);
-  const linkElement = screen.getByText(/Restart/i);
-  expect(linkElement).toBeInTheDocument();
+  const restartButtonElement = screen.getByText(/Restart/i);
+  expect(restartButtonElement).toBeInTheDocument();
 });
 
 test("clicking restart button resets the board", () => {

@@ -14,62 +14,62 @@ const setup = () => {
 };
 
 test("renders Board", () => {
-  const linkElements = setup();
-  expect(linkElements).toHaveLength(9);
+  const boardSpaceElements = setup();
+  expect(boardSpaceElements).toHaveLength(9);
 });
 
 test("player 1 makes move successfully", () => {
-  const linkElements = setup();
+  const boardSpaceElements = setup();
   act(() => {
-    linkElements[0].click();
+    boardSpaceElements[0].click();
   });
-  expect(linkElements[0]).toHaveTextContent("X");
+  expect(boardSpaceElements[0]).toHaveTextContent("X");
 });
 
 test("player 2 makes move successfully after player 1", () => {
-  const linkElements = setup();
+  const boardSpaceElements = setup();
   act(() => {
-    linkElements[0].click();
+    boardSpaceElements[0].click();
   });
   act(() => {
-    linkElements[1].click();
+    boardSpaceElements[1].click();
   });
-  expect(linkElements[1]).toHaveTextContent("O");
+  expect(boardSpaceElements[1]).toHaveTextContent("O");
 });
 
 test("player 2 cannot overwrite player 1's move", () => {
-  const linkElements = setup();
+  const boardSpaceElements = setup();
   act(() => {
-    linkElements[0].click();
+    boardSpaceElements[0].click();
   });
   act(() => {
-    linkElements[0].click();
+    boardSpaceElements[0].click();
   });
-  expect(linkElements[0]).toHaveTextContent("X");
+  expect(boardSpaceElements[0]).toHaveTextContent("X");
 });
 
 test("player 1 cannot make another move after player 2 wins", () => {
-  const linkElements = setup();
+  const boardSpaceElements = setup();
   act(() => {
-    linkElements[0].click();
+    boardSpaceElements[0].click();
   });
   act(() => {
-    linkElements[1].click();
+    boardSpaceElements[1].click();
   });
   act(() => {
-    linkElements[6].click();
+    boardSpaceElements[6].click();
   });
   act(() => {
-    linkElements[4].click();
+    boardSpaceElements[4].click();
   });
   act(() => {
-    linkElements[8].click();
+    boardSpaceElements[8].click();
   });
   act(() => {
-    linkElements[7].click();
+    boardSpaceElements[7].click();
   });
   act(() => {
-    linkElements[2].click();
+    boardSpaceElements[2].click();
   });
-  expect(linkElements[2]).toHaveTextContent(".");
+  expect(boardSpaceElements[2]).toHaveTextContent(".");
 });

@@ -6,6 +6,6 @@ test("renders BoardRow", () => {
   render(
     <BoardRow boardRowData={[".", ".", "."]} boardRowIndices={[0, 1, 2]} />,
   );
-  const linkElement = screen.getAllByText(/./i);
-  expect(linkElement).toHaveLength(3);
+  const boardSpaceElements = screen.getAllByText(/./i);
+  expect(boardSpaceElements).toHaveLength(3);
 });

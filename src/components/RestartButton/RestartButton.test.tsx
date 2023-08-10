@@ -5,6 +5,6 @@ import RestartButton from './RestartButton';
 
 test('renders RestartButton', () => {
   render(<RestartButton />);
-  const linkElement = screen.getByText(/Restart/i);
-  expect(linkElement).toBeInTheDocument();
+  const restartButtonElement = screen.getByText(/Restart/i);
+  expect(restartButtonElement).toBeInTheDocument();
 });
