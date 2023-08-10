@@ -4,32 +4,36 @@ import "@testing-library/jest-dom";
 import App from "./App";
 import { act } from "react-dom/test-utils";
 
-test("renders App", () => {
+const setup = () => {
   render(<App />);
+};
+
+test("renders App", () => {
+  setup();
   const appElements = screen.getAllByText(/./i);
   expect(appElements).toHaveLength(11);
 });
 
 test("renders GameHeader", () => {
-  render(<App />);
+  setup();
   const gameHeaderElement = screen.getByText(/Player X, it's your turn!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders Board", () => {
-  render(<App />);
+  setup();
   const boardSpaceElements = screen.getAllByText(/\./i);
   expect(boardSpaceElements).toHaveLength(9);
 });
 
 test("renders RestartButton", () => {
-  render(<App />);
+  setup();
   const restartButtonElement = screen.getByText(/Restart/i);
   expect(restartButtonElement).toBeInTheDocument();
 });
 
 test("clicking restart button resets the game header", () => {
-  render(<App />);
+  setup();
   const boardSpaces = screen.getAllByText(/\./i);
   act(() => {
     boardSpaces[0].click();
@@ -43,7 +47,7 @@ test("clicking restart button resets the game header", () => {
 });
 
 test("clicking restart button resets the board", () => {
-  render(<App />);
+  setup();
   const boardSpaces = screen.getAllByText(/\./i);
   act(() => {
     boardSpaces[0].click();
