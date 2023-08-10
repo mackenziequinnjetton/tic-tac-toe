@@ -11,6 +11,7 @@ const setup = () => {
         makeMove: jest.fn(),
         winner: false,
         draw: false,
+        restartGame: jest.fn()
       }}
     >
       <div>GameContext</div>

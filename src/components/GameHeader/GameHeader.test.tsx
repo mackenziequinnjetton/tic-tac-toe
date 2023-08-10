@@ -7,7 +7,8 @@ const setup = (
   currentToken: string,
   boardData: string[] = [".", ".", ".", ".", ".", ".", ".", ".", "."],
   winner: boolean = false,
-  draw: boolean = false
+  draw: boolean = false,
+  restartGame: () => void = jest.fn(),
 ) => {
   render(
     <GameContext.Provider
@@ -17,6 +18,7 @@ const setup = (
         makeMove: jest.fn(),
         winner,
         draw,
+        restartGame
       }}
     >
       <GameHeader />

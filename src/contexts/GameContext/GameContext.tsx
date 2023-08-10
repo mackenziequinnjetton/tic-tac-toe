@@ -6,6 +6,7 @@ interface GameContextDataTypes {
   makeMove: (spaceIndex: number) => void;
   winner: boolean;
   draw: boolean;
+  restartGame: () => void;
 }
 
 export const GameContext = createContext<GameContextDataTypes>(
@@ -154,6 +155,13 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     return newDraw;
   };
 
+  const restartGame = () => {
+    setBoardData([".", ".", ".", ".", ".", ".", ".", ".", "."]);
+    setCurrentToken("X");
+    setWinner(false);
+    setDraw(false);
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -162,6 +170,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
         makeMove,
         winner,
         draw,
+        restartGame
       }}
     >
       {children}
