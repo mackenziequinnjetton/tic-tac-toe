@@ -18,7 +18,7 @@ const setup = (
         makeMove: jest.fn(),
         winner,
         draw,
-        restartGame
+        restartGame,
       }}
     >
       <GameHeader />

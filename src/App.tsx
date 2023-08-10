@@ -5,13 +5,15 @@ import GameProvider from "./contexts/GameContext/GameContext";
 import { RestartButton } from "./components/RestartButton";
 
 function App() {
-
   return (
     <>
       <GameProvider>
         <GameHeader />
-        <Board />
-        <RestartButton />
+        <div>
+          <Board />
+          <RestartButton />
+        </div>
+        
       </GameProvider>
     </>
   );

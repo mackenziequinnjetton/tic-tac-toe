@@ -72,10 +72,21 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
       if (!newWinner && !newDraw) {
         switchToken(currentToken);
       }
-      localStorage.setItem("boardData", JSON.stringify(boardData));
-      localStorage.setItem("currentToken", JSON.stringify(currentToken));
-      localStorage.setItem("winner", JSON.stringify(winner));
-      localStorage.setItem("draw", JSON.stringify(draw));
+      enableRestartButton();
+    }
+  };
+
+  const enableRestartButton = () => {
+    const restartButton = document.getElementById("restart-button");
+    if (restartButton && restartButton.hasAttribute("disabled")) {
+      restartButton.removeAttribute("disabled");
+    }
+  };
+
+  const disableRestartButton = () => {
+    const restartButton = document.getElementById("restart-button");
+    if (restartButton) {
+      restartButton.setAttribute("disabled", "true");
     }
   };
 
@@ -160,6 +171,8 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     setCurrentToken("X");
     setWinner(false);
     setDraw(false);
+    
+    disableRestartButton();
   };
 
   return (
@@ -170,7 +183,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
         makeMove,
         winner,
         draw,
-        restartGame
+        restartGame,
       }}
     >
       {children}

@@ -2,11 +2,17 @@ import { useContext } from 'react';
 import { GameContext } from '../../contexts/GameContext/GameContext';
 
 const RestartButton = () => {
-  const { restartGame } = useContext(GameContext);
+  const { restartGame, boardData } = useContext(GameContext);
+
+  const emptyBoard = [".", ".", ".", ".", ".", ".", ".", ".", "."]
 
   return (
     <>
-      <button onClick={restartGame}>
+      <button 
+        id="restart-button" 
+        onClick={restartGame} 
+        disabled={boardData.join("") === emptyBoard.join("")} 
+      >
         Restart
       </button>
     </>
