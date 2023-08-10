@@ -28,6 +28,20 @@ test("renders RestartButton", () => {
   expect(restartButtonElement).toBeInTheDocument();
 });
 
+test("clicking restart button resets the game header", () => {
+  render(<App />);
+  const boardSpaces = screen.getAllByText(/\./i);
+  act(() => {
+    boardSpaces[0].click();
+  });
+  const restartButton = screen.getByText(/Restart/i);
+  act(() => {
+    restartButton.click();
+  });
+  const gameHeaderElement = screen.getByText(/Player X, it's your turn!/i);
+  expect(gameHeaderElement).toBeInTheDocument();
+});
+
 test("clicking restart button resets the board", () => {
   render(<App />);
   const boardSpaces = screen.getAllByText(/\./i);
