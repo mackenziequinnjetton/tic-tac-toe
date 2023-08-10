@@ -6,5 +6,5 @@ import App from "./App";
 test("renders App", () => {
   render(<App />);
   const linkElements = screen.getAllByText(/./i);
-  expect(linkElements).toHaveLength(10);
+  expect(linkElements).toHaveLength(11);
 });
