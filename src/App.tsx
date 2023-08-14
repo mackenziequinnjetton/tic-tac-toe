@@ -18,8 +18,7 @@ function App() {
             ))}
           </div>
           <RestartButton />
-        </div>
-        
+        </div> 
       </GameProvider>
     </>
   );

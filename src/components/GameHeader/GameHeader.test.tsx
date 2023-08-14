@@ -19,6 +19,7 @@ const setup = (
         winner,
         draw,
         restartGame,
+        loadBoardDataFromHistory: jest.fn(),
       }}
     >
       <GameHeader />

@@ -7,6 +7,7 @@ interface GameContextDataTypes {
   winner: boolean;
   draw: boolean;
   restartGame: () => void;
+  loadBoardDataFromHistory: (index: number) => void;
 }
 
 export const GameContext = createContext<GameContextDataTypes>(
@@ -56,12 +57,21 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     return false;
   });
 
+  const [boardDataHistory, setBoardDataHistory] = useState(() => {
+    const boardDataHistoryFromLocalStorage = localStorage.getItem("boardDataHistory");
+    if (boardDataHistoryFromLocalStorage && boardDataHistoryFromLocalStorage !== "undefined") {
+      return JSON.parse(boardDataHistoryFromLocalStorage);
+    }
+    return [[".", ".", ".", ".", ".", ".", ".", ".", "."]];
+  });
+
   useEffect(() => {
     localStorage.setItem("boardData", JSON.stringify(boardData));
     localStorage.setItem("currentToken", JSON.stringify(currentToken));
     localStorage.setItem("winner", JSON.stringify(winner));
     localStorage.setItem("draw", JSON.stringify(draw));
-  }, [boardData, currentToken, winner, draw]);
+    localStorage.setItem("boardDataHistory", JSON.stringify(boardDataHistory));
+  }, [boardData, currentToken, winner, draw, boardDataHistory]);
 
   const makeMove = (spaceIndex: number) => {
     if (!winner && !draw && spaceNotOccupied(spaceIndex)) {
@@ -71,6 +81,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
       const newDraw = checkDraw(newBoardData);
       if (!newWinner && !newDraw) {
         switchToken(currentToken);
+        boardDataHistory.push(newBoardData);
       }
       enableRestartButton();
     }
@@ -171,8 +182,16 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     setCurrentToken("X");
     setWinner(false);
     setDraw(false);
+    setBoardDataHistory([[".", ".", ".", ".", ".", ".", ".", ".", "."]]);
     
     disableRestartButton();
+  };
+
+  const loadBoardDataFromHistory = (index: number) => {
+    if (boardDataHistory[index] !== null) {
+      const newBoardData = boardDataHistory[index];
+      setBoardData(newBoardData);
+    }
   };
 
   return (
@@ -184,6 +203,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
         winner,
         draw,
         restartGame,
+        loadBoardDataFromHistory
       }}
     >
       {children}

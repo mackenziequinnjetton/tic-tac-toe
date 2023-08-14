@@ -11,8 +11,9 @@ const setup = () => {
       currentToken: "X",
       winner: false,
       draw: false,
-      restartGame: () => {},
-      makeMove: () => {},
+      restartGame: jest.fn(),
+      makeMove: jest.fn(),
+      loadBoardDataFromHistory: jest.fn(),
     }}>
       <RestartButton />
     </GameContext.Provider>
