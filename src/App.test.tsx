@@ -11,7 +11,7 @@ const setup = () => {
 test("renders App", () => {
   setup();
   const appElements = screen.getAllByText(/./i);
-  expect(appElements).toHaveLength(12);
+  expect(appElements).toHaveLength(21);
 });
 
 test("renders GameHeader", () => {
@@ -24,6 +24,12 @@ test("renders Board", () => {
   setup();
   const boardSpaceElements = screen.getAllByText(/\./i);
   expect(boardSpaceElements).toHaveLength(9);
+});
+
+test("renders MoveButtons", () => {
+  setup();
+  const moveButtonElement = screen.getAllByText(/[0-9]/i);
+  expect(moveButtonElement).toHaveLength(10);
 });
 
 test("renders RestartButton", () => {

@@ -13,7 +13,9 @@ function App() {
         <div>
           <Board />
           <div>
-            <MoveButton move={0} />
+            {[...Array(10)].map((_, index) => (
+              <MoveButton key={index} move={index} />
+            ))}
           </div>
           <RestartButton />
         </div>
