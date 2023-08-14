@@ -1,7 +1,9 @@
-const MoveButton = () => {
+const MoveButton = ({ move }: { move: number}) => {
   return (
     <>
-      MoveButton
+      <button>
+        {move}
+      </button>
     </>
   )
 };

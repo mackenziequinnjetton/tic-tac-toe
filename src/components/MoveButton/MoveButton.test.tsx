@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import MoveButton from './MoveButton';
 
 test('renders MoveButton', () => {
-  render(<MoveButton />);
-  const linkElement = screen.getByText(/MoveButton/i);
+  render(<MoveButton move={0} />);
+  const linkElement = screen.getByText(/0/i);
   expect(linkElement).toBeInTheDocument();
 });

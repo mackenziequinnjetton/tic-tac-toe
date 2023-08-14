@@ -11,7 +11,7 @@ const setup = () => {
 test("renders App", () => {
   setup();
   const appElements = screen.getAllByText(/./i);
-  expect(appElements).toHaveLength(11);
+  expect(appElements).toHaveLength(12);
 });
 
 test("renders GameHeader", () => {
