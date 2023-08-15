@@ -46,6 +46,25 @@ test("making a move and clicking MoveButton 0 undoes move", () => {
   expect(newBoardSpaces).toHaveLength(9);
 });
 
+test("making 3 moves and clicking MoveButton 1 undoes several but not all moves", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/\./i);
+  act(() => {
+    boardSpaces[0].click();
+    boardSpaces[1].click();
+    boardSpaces[2].click();
+  });
+  const moveButton = screen.getByText(/1/i);
+  act(() => {
+    moveButton.click();
+  });
+  const emptyBoardSpaces = screen.getAllByText(/\./i);
+  expect(emptyBoardSpaces).toHaveLength(8);
+
+  const allBoardSpaces = screen.getAllByText(/./i);
+  expect(allBoardSpaces[0]).toHaveTextContent("X");
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);
