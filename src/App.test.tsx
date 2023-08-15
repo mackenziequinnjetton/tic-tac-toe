@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import App from "./App";
@@ -7,6 +6,12 @@ import { act } from "react-dom/test-utils";
 const setup = () => {
   render(<App />);
 };
+
+afterEach(() => {
+  jest.clearAllMocks();
+  localStorage.clear();
+});
+
 
 test("renders App", () => {
   setup();
@@ -61,8 +66,39 @@ test("making 3 moves and clicking MoveButton 1 undoes several but not all moves"
   const emptyBoardSpaces = screen.getAllByText(/\./i);
   expect(emptyBoardSpaces).toHaveLength(8);
 
-  const allBoardSpaces = screen.getAllByText(/./i);
+  const allBoardSpaces = screen.getAllByText(/^[.XO]$/i);
   expect(allBoardSpaces[0]).toHaveTextContent("X");
+});
+
+test("making 3 moves, clicking MoveButton 1, then clicking MoveButton 2 restores board to expected intermediate state", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/\./i);
+
+  act(() => {
+    boardSpaces[0].click();
+  });
+  act(() => {
+    boardSpaces[1].click();
+  });
+  act(() => {
+    boardSpaces[2].click();
+  });
+
+  const moveButton1 = screen.getByText(/1/i);
+  act(() => {
+    moveButton1.click();
+  });
+  const moveButton2 = screen.getByText(/2/i);
+  act(() => {
+    moveButton2.click();
+  });
+
+  const emptyBoardSpaces = screen.getAllByText(/\./i);
+  expect(emptyBoardSpaces).toHaveLength(7);
+
+  const allBoardSpaces = screen.getAllByText(/^[.XO]$/i);
+  expect(allBoardSpaces[0]).toHaveTextContent("X");
+  expect(allBoardSpaces[1]).toHaveTextContent("O");
 });
 
 test("renders RestartButton", () => {
@@ -83,6 +119,7 @@ test("clicking restart button resets the game header", () => {
   });
   const gameHeaderElement = screen.getByText(/Player X, it's your turn!/i);
   expect(gameHeaderElement).toBeInTheDocument();
+  
 });
 
 test("clicking restart button resets the board", () => {
