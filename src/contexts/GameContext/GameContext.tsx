@@ -188,7 +188,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const loadBoardDataFromHistory = (index: number) => {
-    if (boardDataHistory[index] !== null) {
+    if (boardDataHistory.length > index) {
       const newBoardData = boardDataHistory[index];
       setBoardData(newBoardData);
     }
