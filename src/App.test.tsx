@@ -101,6 +101,16 @@ test("making 3 moves, clicking MoveButton 1, then clicking MoveButton 2 restores
   expect(allBoardSpaces[1]).toHaveTextContent("O");
 });
 
+test("clicking a MoveButton for a move that hasn't happened yet does nothing", () => {
+  setup();
+  const moveButton = screen.getByText(/1/i);
+  act(() => {
+    moveButton.click();
+  });
+  const boardSpaces = screen.getAllByText(/\./i);
+  expect(boardSpaces).toHaveLength(9);
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);
