@@ -191,6 +191,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     if (boardDataHistory.length > index) {
       const newBoardData = boardDataHistory[index];
       setBoardData(newBoardData);
+      switchToken(currentToken);
     }
   };
 

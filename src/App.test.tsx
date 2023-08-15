@@ -56,7 +56,11 @@ test("making 3 moves and clicking MoveButton 1 undoes several but not all moves"
   const boardSpaces = screen.getAllByText(/\./i);
   act(() => {
     boardSpaces[0].click();
+  });
+  act(() => {
     boardSpaces[1].click();
+  });
+  act(() => {
     boardSpaces[2].click();
   });
   const moveButton = screen.getByText(/1/i);
@@ -109,6 +113,22 @@ test("clicking a MoveButton for a move that hasn't happened yet does nothing", (
   });
   const boardSpaces = screen.getAllByText(/\./i);
   expect(boardSpaces).toHaveLength(9);
+});
+
+test("making several moves, going back 1 move, and then making new moves from that point switched currentToken as expected", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces[0].click());
+  act(() => boardSpaces[1].click());
+  
+  const moveButton = screen.getByText(/1/i);
+  act(() => moveButton.click());
+
+  act(() => boardSpaces[2].click());
+
+  const allBoardSpaces = screen.getAllByText(/^[.XO]$/i);
+  expect(allBoardSpaces[0]).toHaveTextContent("X");
+  expect(allBoardSpaces[2]).toHaveTextContent("O");
 });
 
 test("renders RestartButton", () => {
