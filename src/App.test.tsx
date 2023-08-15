@@ -146,6 +146,37 @@ test("making several moves, going back 2 moves, and then making new moves from t
   expect(allBoardSpaces[0]).toHaveTextContent("X");
 });
 
+test("making several moves, going back partway, and then making different moves overwrites the history after that point", () => {
+  setup();
+  const boardSpaces1 = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces1[0].click());
+  act(() => boardSpaces1[1].click());
+  act(() => boardSpaces1[2].click());
+  
+  const moveButton1 = screen.getByText(/1/i);
+  act(() => moveButton1.click());
+
+  act(() => boardSpaces1[3].click());
+
+  const moveButton2 = screen.getByText(/2/i);
+  act(() => moveButton2.click());
+
+  const boardSpaces2 = screen.getAllByText(/^[.XO]$/i);
+  expect(boardSpaces2[0]).toHaveTextContent("X");
+  expect(boardSpaces2[1]).toHaveTextContent(".");
+  expect(boardSpaces2[2]).toHaveTextContent(".");
+  expect(boardSpaces2[3]).toHaveTextContent("O");
+
+  const moveButton3 = screen.getByText(/3/i);
+  act(() => moveButton3.click());
+
+  const boardSpaces3 = screen.getAllByText(/^[.XO]$/i);
+  expect(boardSpaces3[0]).toHaveTextContent("X");
+  expect(boardSpaces3[1]).toHaveTextContent(".");
+  expect(boardSpaces3[2]).toHaveTextContent(".");
+  expect(boardSpaces3[3]).toHaveTextContent("O");
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);

@@ -91,7 +91,9 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
       if (!newWinner && !newDraw) {
         switchToken(currentToken);
         boardDataHistory.push(newBoardData);
-        setCurrentMoveNumber(currentMoveNumber + 1);
+        const newMoveNumber = currentMoveNumber + 1;
+        setCurrentMoveNumber(newMoveNumber);
+        updateBoardDataHistoryIfChangedFuture(newBoardData, newMoveNumber);
       }
       enableRestartButton();
     }
@@ -187,6 +189,12 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     return newDraw;
   };
 
+  const updateBoardDataHistoryIfChangedFuture = (newBoardData: string[], newMoveNumber: number) => {
+    if (newBoardData.join("") !== boardDataHistory[newMoveNumber].join("")) {
+      setBoardDataHistory([...boardDataHistory.slice(0, newMoveNumber), newBoardData]);
+    }
+  };
+
   const restartGame = () => {
     setBoardData([".", ".", ".", ".", ".", ".", ".", ".", "."]);
     setCurrentToken("X");
@@ -203,6 +211,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
       const newBoardData = boardDataHistory[historyMoveNumber];
       setBoardData(newBoardData);
       checkWhatCurrentTokenShouldBe(historyMoveNumber);
+      setCurrentMoveNumber(historyMoveNumber);
     }
   };
 
