@@ -131,6 +131,21 @@ test("making several moves, going back 1 move, and then making new moves from th
   expect(allBoardSpaces[2]).toHaveTextContent("O");
 });
 
+test("making several moves, going back 2 moves, and then making new moves from that point kept currentToken the same as expected", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces[0].click());
+  act(() => boardSpaces[1].click());
+  
+  const moveButton = screen.getByText(/0/i);
+  act(() => moveButton.click());
+
+  act(() => boardSpaces[0].click());
+
+  const allBoardSpaces = screen.getAllByText(/^[.XO]$/i);
+  expect(allBoardSpaces[0]).toHaveTextContent("X");
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);

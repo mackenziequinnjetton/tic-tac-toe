@@ -65,13 +65,22 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     return [[".", ".", ".", ".", ".", ".", ".", ".", "."]];
   });
 
+  const [currentMoveNumber, setCurrentMoveNumber] = useState(() => {
+    const currentMoveNumberFromLocalStorage = localStorage.getItem("currentMoveNumber");
+    if (currentMoveNumberFromLocalStorage && currentMoveNumberFromLocalStorage !== "undefined") {
+      return JSON.parse(currentMoveNumberFromLocalStorage);
+    }
+    return 0;
+  });
+
   useEffect(() => {
     localStorage.setItem("boardData", JSON.stringify(boardData));
     localStorage.setItem("currentToken", JSON.stringify(currentToken));
     localStorage.setItem("winner", JSON.stringify(winner));
     localStorage.setItem("draw", JSON.stringify(draw));
     localStorage.setItem("boardDataHistory", JSON.stringify(boardDataHistory));
-  }, [boardData, currentToken, winner, draw, boardDataHistory]);
+    localStorage.setItem("currentMoveNumber", JSON.stringify(currentMoveNumber));
+  }, [boardData, currentToken, winner, draw, boardDataHistory, currentMoveNumber]);
 
   const makeMove = (spaceIndex: number) => {
     if (!winner && !draw && spaceNotOccupied(spaceIndex)) {
@@ -82,6 +91,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
       if (!newWinner && !newDraw) {
         switchToken(currentToken);
         boardDataHistory.push(newBoardData);
+        setCurrentMoveNumber(currentMoveNumber + 1);
       }
       enableRestartButton();
     }
@@ -183,14 +193,21 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     setWinner(false);
     setDraw(false);
     setBoardDataHistory([[".", ".", ".", ".", ".", ".", ".", ".", "."]]);
+    setCurrentMoveNumber(0);
     
     disableRestartButton();
   };
 
-  const loadBoardDataFromHistory = (index: number) => {
-    if (boardDataHistory.length > index) {
-      const newBoardData = boardDataHistory[index];
+  const loadBoardDataFromHistory = (historyMoveNumber: number) => {
+    if (boardDataHistory.length > historyMoveNumber) {
+      const newBoardData = boardDataHistory[historyMoveNumber];
       setBoardData(newBoardData);
+      checkWhatCurrentTokenShouldBe(historyMoveNumber);
+    }
+  };
+
+  const checkWhatCurrentTokenShouldBe = (historyMoveNumber: number) => {
+    if ((currentMoveNumber - historyMoveNumber) % 2 === 1) {
       switchToken(currentToken);
     }
   };
