@@ -88,14 +88,22 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
       setBoardData(newBoardData);
       const newWinner = checkWinner(newBoardData);
       const newDraw = checkDraw(newBoardData);
-      if (!newWinner && !newDraw) {
-        switchToken(currentToken);
-        boardDataHistory.push(newBoardData);
-        const newMoveNumber = currentMoveNumber + 1;
-        setCurrentMoveNumber(newMoveNumber);
-        updateBoardDataHistoryIfChangedFuture(newBoardData, newMoveNumber);
-      }
+      updateStatesIfGameNotOver(newWinner, newDraw, newBoardData);
       enableRestartButton();
+    }
+  };
+
+  const updateStatesIfGameNotOver = (
+    newWinner: boolean,
+    newDraw: boolean,
+    newBoardData: string[],
+  ) => {
+    if (!newWinner && !newDraw) {
+      switchToken(currentToken);
+      boardDataHistory.push(newBoardData);
+      const newMoveNumber = currentMoveNumber + 1;
+      setCurrentMoveNumber(newMoveNumber);
+      updateBoardDataHistoryIfChangedFuture(newBoardData, newMoveNumber);
     }
   };
 
