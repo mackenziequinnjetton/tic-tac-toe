@@ -7,10 +7,10 @@ const GameHeader = () => {
   return (
     <div>
       {
-        draw 
-        ? "It's a draw!" 
-        : winner 
-        ? `Player ${currentToken} wins!` 
+        winner 
+        ? `Player ${currentToken} wins!`
+        : draw
+        ? "It's a draw!"
         : `Player ${currentToken}, it's your turn!`
       }
     </div>
