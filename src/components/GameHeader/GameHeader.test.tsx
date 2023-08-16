@@ -42,55 +42,55 @@ test("renders GameHeader when currentToken is O", () => {
 });
 
 test("renders GameHeader when player X wins with spaces 1, 2, 3", () => {
-  setup("X", ["X", "X", "X", ".", ".", ".", ".", ".", "."], true, false);
+  setup("O", ["X", "X", "X", "O", "O", ".", ".", ".", "."], true, false);
   const gameHeaderElement = screen.getByText(/Player X wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when player O wins with spaces 4, 5, 6", () => {
-  setup("O", [".", ".", ".", "O", "O", "O", ".", ".", "."], true, false);
+  setup("X", ["X", "X", ".", "O", "O", "O", "X", ".", "."], true, false);
   const gameHeaderElement = screen.getByText(/Player O wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when player X wins with spaces 7, 8, 9", () => {
-  setup("X", [".", ".", ".", ".", ".", ".", "X", "X", "X"], true, false);
+  setup("O", ["O", "O", ".", ".", ".", ".", "X", "X", "X"], true, false);
   const gameHeaderElement = screen.getByText(/Player X wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when player O wins with spaces 1, 4, 7", () => {
-  setup("O", ["O", ".", ".", "O", ".", ".", "O", ".", "."], true, false);
+  setup("X", ["O", "X", "X", "O", "X", ".", "O", ".", "."], true, false);
   const gameHeaderElement = screen.getByText(/Player O wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when player X wins with spaces 2, 5, 8", () => {
-  setup("X", [".", "X", ".", ".", "X", ".", ".", "X", "."], true, false);
+  setup("O", ["O", "X", ".", "O", "X", ".", ".", "X", "."], true, false);
   const gameHeaderElement = screen.getByText(/Player X wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when player O wins with spaces 3, 6, 9", () => {
-  setup("O", [".", ".", "O", ".", ".", "O", ".", ".", "O"], true, false);
+  setup("X", ["X", "X", "O", "X", ".", "O", ".", ".", "O"], true, false);
   const gameHeaderElement = screen.getByText(/Player O wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when player X wins with spaces 1, 5, 9", () => {
-  setup("X", ["X", ".", ".", ".", "X", ".", ".", ".", "X"], true, false);
+  setup("O", ["X", "O", "O", ".", "X", ".", ".", ".", "X"], true, false);
   const gameHeaderElement = screen.getByText(/Player X wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when player O wins with spaces 3, 5, 7", () => {
-  setup("O", [".", ".", "O", ".", "O", ".", "O", ".", "."], true, false);
+  setup("X", ["X", "X", "O", "X", "O", ".", "O", ".", "."], true, false);
   const gameHeaderElement = screen.getByText(/Player O wins!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });
 
 test("renders GameHeader when the game is a draw", () => {
-  setup("X", ["X", "O", "X", "X", "X", "O", "O", "X", "O"], false, true);
+  setup("O", ["X", "O", "X", "X", "X", "O", "O", "X", "O"], false, true);
   const gameHeaderElement = screen.getByText(/It's a draw!/i);
   expect(gameHeaderElement).toBeInTheDocument();
 });

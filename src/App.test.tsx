@@ -242,6 +242,26 @@ test("after a draw, and then going back a move, the game header is updated to re
   expect(nonDrawGameHeaderElement).toBeInTheDocument();
 });
 
+test("after a player winning, going back a move, and then going forward a move, the game header shows that that player won", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces[0].click());
+  act(() => boardSpaces[3].click());
+  act(() => boardSpaces[1].click());
+  act(() => boardSpaces[4].click());
+  act(() => boardSpaces[8].click());
+  act(() => boardSpaces[5].click());
+
+  const moveButton5 = screen.getByText(/5/i);
+  act(() => moveButton5.click());
+
+  const moveButton6 = screen.getByText(/6/i);
+  act(() => moveButton6.click());
+
+  const winningGameHeaderElement = screen.getByText(/Player O wins!/i);
+  expect(winningGameHeaderElement).toBeInTheDocument();
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);

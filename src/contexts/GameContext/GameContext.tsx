@@ -215,8 +215,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     setBoardData(newBoardData);
     checkWhatCurrentTokenShouldBe(historyMoveNumber);
     setCurrentMoveNumber(historyMoveNumber);
-    setWinner(false);
-    setDraw(false);
+    checkWinnerOrDrawerForLoadingHistoricalBoardData(newBoardData);
   };
 
   const checkWhatCurrentTokenShouldBe = (historyMoveNumber: number) => {
@@ -225,6 +224,13 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     } else if (historyMoveNumber > currentMoveNumber && (historyMoveNumber - currentMoveNumber) % 2 === 1) {
       switchToken(currentToken);
     }
+  };
+
+  const checkWinnerOrDrawerForLoadingHistoricalBoardData = (newBoardData: string[]) => {
+    setWinner(false);
+    setDraw(false);
+    checkWinner(newBoardData);
+    checkDraw(newBoardData);
   };
 
   return (
