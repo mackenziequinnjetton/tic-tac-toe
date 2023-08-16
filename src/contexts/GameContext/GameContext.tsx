@@ -9,6 +9,7 @@ interface GameContextDataTypes {
   restartGame: () => void;
   loadBoardDataFromHistory: (index: number) => void;
   boardDataHistoryLength: number;
+  currentMoveNumber: number;
 }
 
 export const GameContext = createContext<GameContextDataTypes>(
@@ -245,6 +246,7 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
         restartGame,
         loadBoardDataFromHistory,
         boardDataHistoryLength: boardDataHistory.length,
+        currentMoveNumber,
       }}
     >
       {children}

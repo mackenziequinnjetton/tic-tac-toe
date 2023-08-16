@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { GameContext } from '../../contexts/GameContext/GameContext';
 
 const MoveButton = ({ move }: { move: number }) => {
-  const { loadBoardDataFromHistory, boardDataHistoryLength } = useContext(GameContext);
+  const { loadBoardDataFromHistory, boardDataHistoryLength, currentMoveNumber } = useContext(GameContext);
 
-  if (move === 0 && boardDataHistoryLength === 1) {
+  if (move === currentMoveNumber) {
     return (
       <>
         <button disabled onClick={_ => loadBoardDataFromHistory(move)}>

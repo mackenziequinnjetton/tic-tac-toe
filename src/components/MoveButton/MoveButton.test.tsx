@@ -3,7 +3,10 @@ import '@testing-library/jest-dom';
 import MoveButton from './MoveButton';
 import { GameContext } from '../../contexts/GameContext/GameContext';
 
-const setup = (move: number, boardData: string[] = [".", ".", ".", ".", ".", ".", ".", ".", "."], boardDataHistoryLength: number = 1) => {
+const setup = (
+  move: number, 
+  boardData: string[] = [".", ".", ".", ".", ".", ".", ".", ".", "."], 
+  boardDataHistoryLength: number = 1) => {
   render(
     <GameContext.Provider value={{
       boardData: boardData,
@@ -14,6 +17,7 @@ const setup = (move: number, boardData: string[] = [".", ".", ".", ".", ".", "."
       makeMove: jest.fn(),
       loadBoardDataFromHistory: jest.fn(),
       boardDataHistoryLength: boardDataHistoryLength,
+      currentMoveNumber: boardDataHistoryLength - 1,
     }}>
       <MoveButton move={move} />
     </GameContext.Provider>
@@ -50,4 +54,8 @@ test("renders MoveButton with move=1 with non-empty board", () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-
+test("once one move has been made, MoveButton with move=1 has attribute 'disabled'", () => {
+  setup(1, ["X", ".", ".", ".", ".", ".", ".", ".", "."], 2);
+  const linkElement = screen.getByText(/1/i);
+  expect(linkElement).toHaveAttribute('disabled');
+});

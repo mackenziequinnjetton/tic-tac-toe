@@ -21,6 +21,7 @@ const setup = (
         restartGame,
         loadBoardDataFromHistory: jest.fn(),
         boardDataHistoryLength: 1,
+        currentMoveNumber: 0
       }}
     >
       <GameHeader />
