@@ -216,12 +216,10 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const loadBoardDataFromHistory = (historyMoveNumber: number) => {
-    if (boardDataHistory.length > historyMoveNumber) {
-      const newBoardData = boardDataHistory[historyMoveNumber];
-      setBoardData(newBoardData);
-      checkWhatCurrentTokenShouldBe(historyMoveNumber);
-      setCurrentMoveNumber(historyMoveNumber);
-    }
+    const newBoardData = boardDataHistory[historyMoveNumber];
+    setBoardData(newBoardData);
+    checkWhatCurrentTokenShouldBe(historyMoveNumber);
+    setCurrentMoveNumber(historyMoveNumber);
   };
 
   const checkWhatCurrentTokenShouldBe = (historyMoveNumber: number) => {

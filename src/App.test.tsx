@@ -105,16 +105,6 @@ test("making 3 moves, clicking MoveButton 1, then clicking MoveButton 2 restores
   expect(allBoardSpaces[1]).toHaveTextContent("O");
 });
 
-test("clicking a MoveButton for a move that hasn't happened yet does nothing", () => {
-  setup();
-  const moveButton = screen.getByText(/1/i);
-  act(() => {
-    moveButton.click();
-  });
-  const boardSpaces = screen.getAllByText(/\./i);
-  expect(boardSpaces).toHaveLength(9);
-});
-
 test("making several moves, going back 1 move, and then making new moves from that point switched currentToken as expected", () => {
   setup();
   const boardSpaces = screen.getAllByText(/^[.XO]$/i);
@@ -188,14 +178,8 @@ test("making several moves, going back partway, and then making different moves 
   expect(boardSpaces2[2]).toHaveTextContent(".");
   expect(boardSpaces2[3]).toHaveTextContent("O");
 
-  const moveButton3 = screen.getByText(/3/i);
-  act(() => moveButton3.click());
-
-  const boardSpaces3 = screen.getAllByText(/^[.XO]$/i);
-  expect(boardSpaces3[0]).toHaveTextContent("X");
-  expect(boardSpaces3[1]).toHaveTextContent(".");
-  expect(boardSpaces3[2]).toHaveTextContent(".");
-  expect(boardSpaces3[3]).toHaveTextContent("O");
+  const moveButtons = screen.getAllByText(/[0-9]/i);
+  expect(moveButtons).toHaveLength(3);
 });
 
 test("renders RestartButton", () => {
