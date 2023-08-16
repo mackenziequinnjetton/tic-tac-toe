@@ -222,6 +222,26 @@ test("after a player winning, and then going back a move, the game header is upd
   expect(nonWinningGameHeaderElement).toBeInTheDocument();
 });
 
+test("after a draw, and then going back a move, the game header is updated to reflect the game no longer being a draw", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces[0].click());
+  act(() => boardSpaces[1].click());
+  act(() => boardSpaces[2].click());
+  act(() => boardSpaces[3].click());
+  act(() => boardSpaces[5].click());
+  act(() => boardSpaces[4].click());
+  act(() => boardSpaces[6].click());
+  act(() => boardSpaces[8].click());
+  act(() => boardSpaces[7].click());
+
+  const moveButton = screen.getByText(/8/i);
+  act(() => moveButton.click());
+
+  const nonDrawGameHeaderElement = screen.getByText(/Player X, it's your turn!/i);
+  expect(nonDrawGameHeaderElement).toBeInTheDocument();
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);
