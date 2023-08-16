@@ -16,7 +16,7 @@ afterEach(() => {
 test("renders App", () => {
   setup();
   const appElements = screen.getAllByText(/./i);
-  expect(appElements).toHaveLength(21);
+  expect(appElements).toHaveLength(12);
 });
 
 test("renders GameHeader", () => {
@@ -31,10 +31,10 @@ test("renders Board", () => {
   expect(boardSpaceElements).toHaveLength(9);
 });
 
-test("renders MoveButtons", () => {
+test("only one moveButton renders on initial load", () => {
   setup();
   const moveButtonElement = screen.getAllByText(/[0-9]/i);
-  expect(moveButtonElement).toHaveLength(10);
+  expect(moveButtonElement).toHaveLength(1);
 });
 
 test("making a move and clicking MoveButton 0 undoes move", () => {

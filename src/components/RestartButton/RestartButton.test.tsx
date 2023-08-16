@@ -14,6 +14,7 @@ const setup = () => {
       restartGame: jest.fn(),
       makeMove: jest.fn(),
       loadBoardDataFromHistory: jest.fn(),
+      boardDataHistoryLength: 1,
     }}>
       <RestartButton />
     </GameContext.Provider>

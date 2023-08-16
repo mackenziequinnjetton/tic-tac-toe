@@ -20,6 +20,7 @@ const setup = (
         draw,
         restartGame,
         loadBoardDataFromHistory: jest.fn(),
+        boardDataHistoryLength: 1,
       }}
     >
       <GameHeader />
