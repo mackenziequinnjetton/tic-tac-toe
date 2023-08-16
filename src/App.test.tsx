@@ -37,6 +37,16 @@ test("only one moveButton renders on initial load", () => {
   expect(moveButtonElement).toHaveLength(1);
 });
 
+test("making a move causes there to be two MoveButtons", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/\./i);
+  act(() => {
+    boardSpaces[0].click();
+  });
+  const moveButtons = screen.getAllByText(/[0-9]/i);
+  expect(moveButtons).toHaveLength(2);
+});
+
 test("making a move and clicking MoveButton 0 undoes move", () => {
   setup();
   const boardSpaces = screen.getAllByText(/\./i);
