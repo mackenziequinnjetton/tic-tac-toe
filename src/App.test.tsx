@@ -262,6 +262,29 @@ test("after a player winning, going back a move, and then going forward a move, 
   expect(winningGameHeaderElement).toBeInTheDocument();
 });
 
+test("after a draw, going back a move, and then going forward a move, the game header shows that the game is a draw", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces[0].click());
+  act(() => boardSpaces[1].click());
+  act(() => boardSpaces[2].click());
+  act(() => boardSpaces[3].click());
+  act(() => boardSpaces[5].click());
+  act(() => boardSpaces[4].click());
+  act(() => boardSpaces[6].click());
+  act(() => boardSpaces[8].click());
+  act(() => boardSpaces[7].click());
+
+  const moveButton8 = screen.getByText(/8/i);
+  act(() => moveButton8.click());
+
+  const moveButton9 = screen.getByText(/9/i);
+  act(() => moveButton9.click());
+
+  const drawGameHeaderElement = screen.getByText(/It's a draw!/i);
+  expect(drawGameHeaderElement).toBeInTheDocument();
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);
