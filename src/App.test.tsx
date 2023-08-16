@@ -37,7 +37,7 @@ test("only one moveButton renders on initial load", () => {
   expect(moveButtonElement).toHaveLength(1);
 });
 
-test("making a move causes there to be two MoveButtons", () => {
+test("making a move causes there to be two MoveButton rendered", () => {
   setup();
   const boardSpaces = screen.getAllByText(/\./i);
   act(() => {
@@ -45,6 +45,20 @@ test("making a move causes there to be two MoveButtons", () => {
   });
   const moveButtons = screen.getAllByText(/[0-9]/i);
   expect(moveButtons).toHaveLength(2);
+});
+
+test("making a move, then clicking first MoveButton to undo it, causes there to still be two MoveButtons rendered", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/\./i);
+  act(() => {
+    boardSpaces[0].click();
+  });
+  const moveButton = screen.getByText(/0/i);
+  act(() => {
+    moveButton.click();
+  });
+  const newMoveButtons = screen.getAllByText(/[0-9]/i);
+  expect(newMoveButtons).toHaveLength(2);
 });
 
 test("making a move and clicking MoveButton 0 undoes move", () => {
