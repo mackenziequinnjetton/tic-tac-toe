@@ -88,23 +88,13 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     if (!winner && !draw && spaceNotOccupied(spaceIndex)) {
       const newBoardData = updateBoardData(spaceIndex);
       setBoardData(newBoardData);
-      const newWinner = checkWinner(newBoardData);
-      const newDraw = checkDraw(newBoardData);
-      updateStatesIfGameNotOver(newWinner, newDraw, newBoardData);
-      enableRestartButton();
-    }
-  };
-
-  const updateStatesIfGameNotOver = (
-    newWinner: boolean,
-    newDraw: boolean,
-    newBoardData: string[],
-  ) => {
-    if (!newWinner && !newDraw) {
+      checkWinner(newBoardData);
+      checkDraw(newBoardData);
       switchToken(currentToken);
       const newMoveNumber = currentMoveNumber + 1;
       setCurrentMoveNumber(newMoveNumber);
       updateBoardDataHistory(newBoardData, newMoveNumber);
+      enableRestartButton();
     }
   };
 
@@ -225,6 +215,8 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
     setBoardData(newBoardData);
     checkWhatCurrentTokenShouldBe(historyMoveNumber);
     setCurrentMoveNumber(historyMoveNumber);
+    setWinner(false);
+    setDraw(false);
   };
 
   const checkWhatCurrentTokenShouldBe = (historyMoveNumber: number) => {

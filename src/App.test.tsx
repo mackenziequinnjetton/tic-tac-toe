@@ -206,6 +206,22 @@ test("making several moves, going back partway, and then making different moves 
   expect(moveButtons).toHaveLength(3);
 });
 
+test("after a player winning, and then going back a move, the game header is updated to reflect the game no longer being won", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces[0].click());
+  act(() => boardSpaces[3].click());
+  act(() => boardSpaces[1].click());
+  act(() => boardSpaces[4].click());
+  act(() => boardSpaces[2].click());
+
+  const moveButton = screen.getByText(/4/i);
+  act(() => moveButton.click());
+
+  const nonWinningGameHeaderElement = screen.getByText(/Player X, it's your turn!/i);
+  expect(nonWinningGameHeaderElement).toBeInTheDocument();
+});
+
 test("renders RestartButton", () => {
   setup();
   const restartButtonElement = screen.getByText(/Restart/i);
