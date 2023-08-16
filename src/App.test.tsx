@@ -146,6 +146,27 @@ test("making several moves, going back 2 moves, and then making new moves from t
   expect(allBoardSpaces[0]).toHaveTextContent("X");
 });
 
+test("making several moves, going back an even number of moves, and then going forward an odd number of moves switches currentToken as expected", () => {
+  setup();
+  const boardSpaces = screen.getAllByText(/^[.XO]$/i);
+  act(() => boardSpaces[0].click());
+  act(() => boardSpaces[1].click());
+  act(() => boardSpaces[2].click());
+  
+  const moveButton1 = screen.getByText(/1/i);
+  act(() => moveButton1.click());
+
+  const moveButton2 = screen.getByText(/2/i);
+  act(() => moveButton2.click());
+
+  act(() => boardSpaces[2].click());
+
+  const allBoardSpaces = screen.getAllByText(/^[.XO]$/i);
+  expect(allBoardSpaces[0]).toHaveTextContent("X");
+  expect(allBoardSpaces[1]).toHaveTextContent("O");
+  expect(allBoardSpaces[2]).toHaveTextContent("X");
+});
+
 test("making several moves, going back partway, and then making different moves overwrites the history after that point", () => {
   setup();
   const boardSpaces1 = screen.getAllByText(/^[.XO]$/i);

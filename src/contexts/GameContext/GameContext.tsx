@@ -224,7 +224,9 @@ const GameProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const checkWhatCurrentTokenShouldBe = (historyMoveNumber: number) => {
-    if ((currentMoveNumber - historyMoveNumber) % 2 === 1) {
+    if (historyMoveNumber <= currentMoveNumber && (currentMoveNumber - historyMoveNumber) % 2 === 1) {
+      switchToken(currentToken);
+    } else if (historyMoveNumber > currentMoveNumber && (historyMoveNumber - currentMoveNumber) % 2 === 1) {
       switchToken(currentToken);
     }
   };
